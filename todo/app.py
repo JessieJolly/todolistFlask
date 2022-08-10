@@ -9,6 +9,7 @@ db = SQLAlchemy(app)
 
 """Creating an Object for tasks"""
 class Task(db.Model): 
+    __tablename__ = 'task'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode, nullable=False)
     note = db.Column(db.Unicode)
@@ -16,8 +17,8 @@ class Task(db.Model):
     due_date = db.Column(db.DateTime)
     completed = db.Column(db.Boolean, default=False)
     """Creating a many to one relationship b/w tasks and user"""
+    user = db.relationship("User", back_populates="tasks")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship("user", back_populates="tasks")
 
     def __init__(self, *args, **kwargs):
         """On construction, set date of creation."""
@@ -26,6 +27,7 @@ class Task(db.Model):
 
 """Creating an Object for User"""
 class User(db.Model): 
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Unicode, nullable=False)
     email = db.Column(db.Unicode, nullable=False)
