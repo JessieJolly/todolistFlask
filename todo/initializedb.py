@@ -1,4 +1,8 @@
-from todo.app import db
+'''in command prompt, enter: 'psql -U postgres' to view database'''
+'''\l: lists all databases'''
+'''\c flask_db: connects to database'''
+'''\dt: lists all tables in database'''
+from app import db
 import os
 
 if bool(os.environ.get('DEBUG', '')):

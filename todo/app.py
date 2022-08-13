@@ -5,7 +5,11 @@ from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost:5432/flask_db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost:5432/flask_db'
+app.config.update(
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:jess@localhost:5432/flask_db',
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+)
 db = SQLAlchemy(app)
 
 """Creating an Object for tasks"""
@@ -44,6 +48,7 @@ class User(db.Model):
 
 """printing the list of api's provided on application"""
 @app.route('/api/v1', methods=["GET"])
+@app.route('/api/v1/', methods=["GET"])
 def info_view():
     """List of routes for this API."""
     output = {
